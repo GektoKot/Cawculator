@@ -10,16 +10,17 @@ import java.util.Stack;
 public class Cawculator {
 
     public static String expressionToRPN(String expression) {
+        String extendedExpression = extendingExpression(expression);
         StringBuilder rpnResult = new StringBuilder();
         Stack<Character> operationStack = new Stack<>();
-        for (int i = 0; i < expression.length(); i++) {
-            int priority = getPriority(expression.charAt(i));
+        for (int i = 0; i < extendedExpression.length(); i++) {
+            int priority = getPriority(extendedExpression.charAt(i));
 
             if (priority == 0) {
-                rpnResult.append(expression.charAt(i));
+                rpnResult.append(extendedExpression.charAt(i));
             }
             if (priority == 1) {
-                operationStack.push(expression.charAt(i));
+                operationStack.push(extendedExpression.charAt(i));
             }
             if (priority > 1) {
                 rpnResult.append(" ");
@@ -31,7 +32,7 @@ public class Cawculator {
                         break;
                     }
                 }
-                operationStack.push(expression.charAt(i));
+                operationStack.push(extendedExpression.charAt(i));
             }
             if (priority == -1) {
                 rpnResult.append(" ");
@@ -85,7 +86,6 @@ public class Cawculator {
                     case '-':
                         resultStuck.push(a - b);
                         break;
-//                    case '^':
                 }
 
             }
@@ -94,6 +94,21 @@ public class Cawculator {
         }
 
         return resultStuck.pop();
+    }
+
+    private static String extendingExpression (String expression) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < expression.length(); i++) {
+            if (expression.charAt(i) == '-') {
+                if (i == 0) {
+                    result.append('0');
+                } else if ( expression.charAt(i - 1) == '(') {
+                    result.append('0');
+                }
+            }
+            result.append(expression.charAt(i));
+        }
+        return result.toString();
     }
 
     private static int getPriority(Character character) {
@@ -108,8 +123,6 @@ public class Cawculator {
             case '*':
             case '/':
                 return 3;
-//            case '^':
-//                return 4;
             default:
                 return 0;
         }
