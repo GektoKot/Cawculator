@@ -1,12 +1,15 @@
 package main;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        //начало программы. Заводим Баффэрэдридер для чтения из консоли
+
+        //консольный вариант
+        /*//начало программы. Заводим Баффэрэдридер для чтения из консоли
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         //приветствие
         System.out.println("Welcome to CAWculator!");
@@ -24,6 +27,15 @@ public class Main {
             expression = reader.readLine();
         }
         System.out.println("CaW-cAw!");
-        reader.close();
+        reader.close();*/
+
+
+        //Типа Gui
+        Frame frame = new Frame("CaWculator");
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(700,100);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
     }
 }
